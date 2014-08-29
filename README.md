@@ -35,7 +35,7 @@ After installing, update your `app/config/app.php` file to include a reference t
 	    'CodeZero\Twitter\TwitterServiceProvider'
     ]
 
-Next, copy the config file to your `app/config` folder by running this command in the console:
+Next, create the [config](#edit-configuration "Configuration File") file: `app/config/twitter.php`. Or publish the package config file by running this command in the console:
 
 	php artisan config:publish codezero/twitter
 
