@@ -1,0 +1,31 @@
+{
+    "name": "codezero/twitter",
+    "description": "Simple Twitter API wrapper",
+    "keywords": [
+        "twitter",
+        "api",
+        "laravel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ivan Vermeyen",
+            "email": "ivan@codezero.be"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "codezero/courier": "1.*",
+        "codezero/utilities": "1.*",
+        "codezero/configurator": "1.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "CodeZero\\Twitter": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
