@@ -153,3 +153,6 @@ For an overview of all available `Tweet` and `User` information, take a look at 
 	$tweets = $twitter->searchTweets($query, $count, $cacheMinutes, $returnEntities);
 
 ### That's all for now... ###
+
+---
+[![Analytics](https://ga-beacon.appspot.com/UA-58876018-1/codezero-be/twitter)](https://github.com/igrigorik/ga-beacon)
