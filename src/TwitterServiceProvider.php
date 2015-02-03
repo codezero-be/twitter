@@ -41,21 +41,17 @@ class TwitterServiceProvider extends ServiceProvider {
     {
         $this->app->bind('CodeZero\Twitter\Twitter', function($app)
         {
-            $loader = new \CodeZero\Configurator\Loader();
-
             $config = $app['config']->has("twitter")
                 ? $app['config']->get("twitter")
                 : $app['config']->get("twitter::config");
 
-            $configurator = new \CodeZero\Configurator\Configurator($loader, $config);
-
+            $configurator = new \CodeZero\Configurator\DefaultConfigurator();
             $courier = $app->make('CodeZero\Twitter\TwitterCourier');
-
             $authHelper = new \CodeZero\Twitter\AuthHelper();
             $urlHelper = new \CodeZero\Utilities\UrlHelper();
             $twitterFactory = new \CodeZero\Twitter\TwitterFactory();
 
-            return new \CodeZero\Twitter\Twitter($configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
+            return new \CodeZero\Twitter\Twitter($config, $configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
         });
     }
 

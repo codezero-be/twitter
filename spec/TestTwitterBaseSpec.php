@@ -1,5 +1,6 @@
 <?php namespace spec\CodeZero\Twitter;
 
+use CodeZero\Configurator\Configuration;
 use CodeZero\Configurator\Configurator;
 use CodeZero\Courier\Response;
 use CodeZero\Twitter\AuthHelper;
@@ -12,16 +13,24 @@ use Prophecy\Argument;
 
 class TestTwitterBaseSpec extends ObjectBehavior {
 
-    function let(Configurator $configurator, TwitterCourier $courier, AuthHelper $authHelper, UrlHelper $urlHelper, TwitterFactory $twitterFactory)
-    {
-        $this->beConstructedWith($configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
+    private static $CONFIG = ['set1' => 'val1', 'set2' => 'val2'];
 
-        // Constructor
-        $configurator->get(Argument::type('string'))->willReturn('config');
+    function let(Configuration $configuration, Configurator $configurator, TwitterCourier $courier, AuthHelper $authHelper, UrlHelper $urlHelper, TwitterFactory $twitterFactory)
+    {
+        $this->beConstructedWith(SELF::$CONFIG, $configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
+
+        $configurator->load(SELF::$CONFIG)->willReturn($configuration);
+        $configuration->get(Argument::type('string'))->willReturn('config');;
     }
 
     function it_is_initializable()
     {
+        $this->shouldHaveType('CodeZero\Twitter\TwitterBase');
+    }
+
+    function it_is_initializable_with_constructor_config_argument_only()
+    {
+        $this->beConstructedWith(SELF::$CONFIG);
         $this->shouldHaveType('CodeZero\Twitter\TwitterBase');
     }
 

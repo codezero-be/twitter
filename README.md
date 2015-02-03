@@ -11,7 +11,7 @@ This package hides away the complexity of "talking" to the Twitter API, but inst
 
 - All queries require an **API key** and **API secret** to generate App Credentials
 - Authorization will be triggered automatically behind the scenes
-- Fetch a users tweets with a single method call
+- Fetch a user's tweets with a single method call
 - Search Twitter for a hash tag or keyword
 - Get the results in standard JSON format, or use our simplified `Tweet` objects
 - Optional Caching (only [Laravel](http://www.laravel.com/ "Laravel") implementation included, see [codezero-be/courier](https://github.com/codezero-be/courier))
@@ -41,32 +41,14 @@ Next, create the [config](#edit-configuration "Configuration File") file: `app/c
 
 ### Manual Setup ###
 
-If you don't use Laravel, you will have to instantiate all of the dependencies manually.
-
-##### Create a Courier instance: #####
-
-You'll need to inject an instance of `Courier`. Please refer to [codezero-be/courier](https://github.com/codezero-be/courier) for detailed information on how to instantiate this dependency.
-
-	$courier = new Courier(...);
-
-##### Locate configuration file: #####
-
 Specify the location of your config file. An example configuration file is included in the `src/config` folder. You can put this anywhere you want.
 
     $config = '/path/to/configFile.php';
 
-##### Instantiate dependencies: #####
+Create Twitter instance:
 
-	$loader = new \CodeZero\Configurator\Loader();
-    $configurator = new \CodeZero\Configurator\Configurator($loader, $config);
-    $twitterCourier = new \CodeZero\Twitter\TwitterCourier($courier);
-    $authHelper = new \CodeZero\Twitter\AuthHelper();
-    $urlHelper = new \CodeZero\Utilities\UrlHelper();
-    $twitterFactory = new \CodeZero\Twitter\TwitterFactory();
-
-##### Create Twitter instance: #####
-
-    $twitter = new \CodeZero\Twitter\Twitter($configurator, $twitterCourier, $authHelper, $urlHelper, $twitterFactory);
+    use CodeZero\Twitter\Twitter;
+    $twitter = new Twitter($config);
 
 ## Edit Configuration ##
 

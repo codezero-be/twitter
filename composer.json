@@ -17,7 +17,7 @@
         "php": ">=5.4.0",
         "codezero/courier": "1.*",
         "codezero/utilities": "1.*",
-        "codezero/configurator": "1.*"
+        "codezero/configurator": "3.*"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0"

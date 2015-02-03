@@ -1,6 +1,7 @@
 <?php namespace CodeZero\Twitter; 
 
 use CodeZero\Courier\Courier;
+use CodeZero\Courier\CurlCourier;
 use CodeZero\Courier\Exceptions\HttpRequestException;
 use CodeZero\Courier\Response;
 
@@ -18,9 +19,9 @@ class TwitterCourier {
      *
      * @param Courier $courier
      */
-    public function __construct(Courier $courier)
+    public function __construct(Courier $courier = null)
     {
-        $this->courier = $courier;
+        $this->courier = $courier ?: new CurlCourier();
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php namespace CodeZero\Twitter;
 
 use CodeZero\Configurator\Configurator;
+use CodeZero\Configurator\DefaultConfigurator;
 use CodeZero\Utilities\UrlHelper;
 
 abstract class TwitterBase {
@@ -64,23 +65,29 @@ abstract class TwitterBase {
     /**
      * Constructor
      *
+     * @param $config
      * @param Configurator $configurator
      * @param TwitterCourier $courier
      * @param AuthHelper $authHelper
      * @param UrlHelper $urlHelper
      * @param TwitterFactory $twitterFactory
+     *
+     * @throws \CodeZero\Configurator\ConfigurationException
      */
-    public function __construct(Configurator $configurator, TwitterCourier $courier, AuthHelper $authHelper, UrlHelper $urlHelper, TwitterFactory $twitterFactory)
+    public function __construct($config, Configurator $configurator = null, TwitterCourier $courier = null, AuthHelper $authHelper = null, UrlHelper $urlHelper = null, TwitterFactory $twitterFactory = null)
     {
-        $this->baseUrl = $configurator->get('base_url');
-        $this->apiVersion = $configurator->get('api_version');
-        $this->apiKey = $configurator->get('api_key');
-        $this->apiSecret = $configurator->get('api_secret');
+        $this->courier = $courier ?: new TwitterCourier();
+        $this->authHelper = $authHelper ?: new AuthHelper();
+        $this->urlHelper = $urlHelper ?: new UrlHelper();
+        $this->twitterFactory = $twitterFactory ?: new TwitterFactory();
 
-        $this->courier = $courier;
-        $this->authHelper = $authHelper;
-        $this->urlHelper = $urlHelper;
-        $this->twitterFactory = $twitterFactory;
+        $configurator = $configurator ?: new DefaultConfigurator();
+        $config = $configurator->load($config);
+
+        $this->baseUrl = $config->get('base_url');
+        $this->apiVersion = $config->get('api_version');
+        $this->apiKey = $config->get('api_key');
+        $this->apiSecret = $config->get('api_secret');
     }
 
     /**
