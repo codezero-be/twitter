@@ -23,8 +23,8 @@
         "phpspec/phpspec": "~2.0"
     },
     "autoload": {
-        "psr-0": {
-            "CodeZero\\Twitter": "src/"
+        "psr-4": {
+            "CodeZero\\Twitter\\": "src/"
         }
     },
     "minimum-stability": "stable"
