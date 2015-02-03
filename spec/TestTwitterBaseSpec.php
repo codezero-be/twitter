@@ -17,9 +17,9 @@ class TestTwitterBaseSpec extends ObjectBehavior {
 
     function let(Configuration $configuration, Configurator $configurator, TwitterCourier $courier, AuthHelper $authHelper, UrlHelper $urlHelper, TwitterFactory $twitterFactory)
     {
-        $this->beConstructedWith(SELF::$CONFIG, $configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
+        $this->beConstructedWith(self::$CONFIG, $configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
 
-        $configurator->load(SELF::$CONFIG)->willReturn($configuration);
+        $configurator->load(self::$CONFIG)->willReturn($configuration);
         $configuration->get(Argument::type('string'))->willReturn('config');;
     }
 
@@ -30,7 +30,7 @@ class TestTwitterBaseSpec extends ObjectBehavior {
 
     function it_is_initializable_with_constructor_config_argument_only()
     {
-        $this->beConstructedWith(SELF::$CONFIG);
+        $this->beConstructedWith(self::$CONFIG);
         $this->shouldHaveType('CodeZero\Twitter\TwitterBase');
     }
 
