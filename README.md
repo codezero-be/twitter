@@ -1,6 +1,6 @@
 # Simple Twitter API Wrapper
 
-[![Build Status](https://travis-ci.org/codezero-be/twitter.svg?branch=master)](https://travis-ci.org/codezero-be/twitter)[![Latest Stable Version](https://poser.pugx.org/codezero/twitter/v/stable.svg)](https://packagist.org/packages/codezero/twitter)[![Total Downloads](https://poser.pugx.org/codezero/twitter/downloads.svg)](https://packagist.org/packages/codezero/twitter)[![License](https://poser.pugx.org/codezero/twitter/license.svg)](https://packagist.org/packages/codezero/twitter)
+[![Build Status](https://travis-ci.org/codezero-be/twitter.svg?branch=master)](https://travis-ci.org/codezero-be/twitter) [![Latest Stable Version](https://poser.pugx.org/codezero/twitter/v/stable.svg)](https://packagist.org/packages/codezero/twitter) [![Total Downloads](https://poser.pugx.org/codezero/twitter/downloads.svg)](https://packagist.org/packages/codezero/twitter) [![License](https://poser.pugx.org/codezero/twitter/license.svg)](https://packagist.org/packages/codezero/twitter)
 
 This package hides away the complexity of "talking" to the Twitter API, but instead offers a few simple functions to execute some basic queries.
 
