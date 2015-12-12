@@ -1,8 +1,29 @@
-<?php namespace CodeZero\Twitter;
+<?php
 
+namespace CodeZero\Twitter;
+
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
-class TwitterServiceProvider extends ServiceProvider {
+class TwitterServiceProvider extends ServiceProvider
+{
+    /**
+     * Actual provider
+     *
+     * @var \Illuminate\Support\ServiceProvider
+     */
+    protected $provider;
+
+    /**
+     * Create a new service provider instance.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     */
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        $this->provider = $this->getProvider();
+    }
 
     /**
      * Bootstrap the application events.
@@ -11,48 +32,30 @@ class TwitterServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('codezero/twitter');
+        return $this->provider->boot();
     }
-
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-        $this->registerConfigurator();
-	}
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return ['twitter'];
-	}
 
     /**
-     * Register the configurator binding
+     * Register the service provider.
+     *
+     * @return void
      */
-    private function registerConfigurator()
+    public function register()
     {
-        $this->app->bind('CodeZero\Twitter\Twitter', function($app)
-        {
-            $config = $app['config']->has("twitter")
-                ? $app['config']->get("twitter")
-                : $app['config']->get("twitter::config");
-
-            $configurator = new \CodeZero\Configurator\DefaultConfigurator();
-            $courier = $app->make('CodeZero\Twitter\TwitterCourier');
-            $authHelper = new \CodeZero\Twitter\AuthHelper();
-            $urlHelper = new \CodeZero\Utilities\UrlHelper();
-            $twitterFactory = new \CodeZero\Twitter\TwitterFactory();
-
-            return new \CodeZero\Twitter\Twitter($config, $configurator, $courier, $authHelper, $urlHelper, $twitterFactory);
-        });
+        return $this->provider->register();
     }
 
+    /**
+     * Return ServiceProvider according to Laravel version.
+     */
+    private function getProvider()
+    {
+        if (version_compare(app()->version(), '5.0', '<')) {
+            $provider = '\CodeZero\Twitter\ServiceProviders\Laravel4';
+        } else {
+            $provider = '\CodeZero\Twitter\ServiceProviders\Laravel5';
+        }
+
+        return new $provider($this->app);
+    }
 }
